@@ -4,16 +4,16 @@ import {
   login,
   refreshToken,
   logout,
-} from "./controllers/user.controller.js";
+} from "./controllers/auth.controller.js";
 import { authenticateToken } from "./middlewares/authenticateToken.js";
 
 const router = Router();
 
+// Auth
 router.post("/users/register", register);
 router.post("/users/login", login);
-router.post("/refresh", refreshToken);
-router.delete("/logout", logout);
-
+router.get("/refresh", refreshToken);
+router.delete("/logout", authenticateToken, logout);
 router.get("/verify", authenticateToken, (req, res) => res.json(req.user));
 
 

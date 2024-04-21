@@ -1,16 +1,15 @@
 import jwt from "jsonwebtoken";
 
 export function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const accessToken = req.cookies['accessToken'];
 
-  if (token == null) {
-    return res.sendStatus(401);
+  if (accessToken == null) {
+    return res.status(401).send('No Access Token')
   }
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
-      return res.sendStatus(403);
+      return res.status(401).send('Invalid Access Token')
     }
 
     req.user = user;
