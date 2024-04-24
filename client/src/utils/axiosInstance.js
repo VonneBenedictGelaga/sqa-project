@@ -9,20 +9,24 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const isUnauthorized = error.response?.status === 401;
 
-    if (
-      error.response.status === 401 &&
-      originalRequest.url.includes("refresh")
-    ) {
+    // don't try to refresh on login
+    if (isUnauthorized && originalRequest.url.includes("login")) {
       return Promise.reject(error);
-    } else if (error.response.status === 401 && !originalRequest._retry) {
+    }
+
+    if (isUnauthorized && originalRequest.url.includes("refresh")) {
+      return Promise.reject(error); // Reject for refresh request errors
+    } else if (isUnauthorized && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
         await api.get("refresh");
-      } catch (error) {
-        console.log("error", error);
+        return api(originalRequest);
+      } catch (refreshError) {
+        console.error("Refresh token failed:", refreshError);
+        return Promise.reject(new Error("Failed to refresh token"));
       }
-      return api(originalRequest);
     }
     return Promise.reject(error);
   }

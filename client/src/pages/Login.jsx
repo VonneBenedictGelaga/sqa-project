@@ -12,7 +12,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/users/login", {
+      const res = await api.post("/login", {
         username,
         password,
       });
@@ -39,7 +39,6 @@ function Login() {
               required
               minLength="3"
             />
-            {/* <p className="error">{errors.email?.message}</p> */}
           </div>
 
           <div className="flex flex-col mb-4">
@@ -52,7 +51,6 @@ function Login() {
               required
               minLength="6"
             />
-            {/* <p className="error">{errors.password?.message}</p> */}
           </div>
           <div className="error">{errorMsg}</div>
 

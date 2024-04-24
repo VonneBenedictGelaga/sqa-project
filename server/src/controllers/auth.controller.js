@@ -1,16 +1,4 @@
-import {
-  collection,
-  doc,
-  addDoc,
-  getDoc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  query,
-  where,
-  limit,
-} from "firebase/firestore";
-import db from "../utils/firebase.js";
+import * as authService from "../services/auth.service.js";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -18,11 +6,8 @@ import jwt from "jsonwebtoken";
 const ACCESS_TOKEN_EXPIRY = "15s";
 
 /**
- * TODO
- * storing refreshTokenMap in memory,
+ * storing refreshTokenMap in memory.
  * everytime server restarts it logs out every user.
- */
-/**
  * Map containing refresh token associated with username
  * @type {Map<string, string>}
  */
@@ -44,11 +29,13 @@ export async function register(req, res, next) {
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await addDoc(collection(db, "users"), {
-      username,
-      password: hashedPassword,
-    });
+    const duplicateUser = await authService.getByUsername(username);
+    if (duplicateUser) {
+      res.status(409);
+      throw new Error("username already taken");
+    }
+
+    await authService.createUser(username, password);
     res.sendStatus(201);
   } catch (err) {
     next(err);
@@ -66,19 +53,11 @@ export async function login(req, res, next) {
   }
 
   try {
-    const q = query(
-      collection(db, "users"),
-      where("username", "==", username),
-      limit(1)
-    );
-    const querySnap = await getDocs(q);
-
-    if (querySnap.empty) {
+    const user = await authService.getByUsername(username);
+    if (!user) {
       res.status(401);
       throw new Error("username not found");
     }
-
-    const user = querySnap.docs[0].data();
 
     if (!(await bcrypt.compare(password, user.password))) {
       res.status(401);
