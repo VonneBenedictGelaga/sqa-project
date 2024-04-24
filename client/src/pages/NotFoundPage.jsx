@@ -1,4 +1,4 @@
-function NotFound() {
+function NotFoundPage() {
   return (
     <div className="h-screen grid place-items-center bg-slate-400">
       <h1 className="text-center">sorry this page is not found (っ╥╯﹏╰╥c) </h1>
@@ -6,4 +6,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default NotFoundPage;

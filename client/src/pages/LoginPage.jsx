@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../utils/axiosInstance";
-import Swal from "sweetalert2";
 
-function Register() {
+function LoginPage() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -13,18 +12,11 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/register", {
+      const res = await api.post("/login", {
         username,
         password,
       });
-      Swal.fire({
-        position: "bottom-end",
-        icon: "success",
-        title: "Account Created",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       setErrorMsg(error?.response?.data?.message ?? "something wen't wrong");
     }
@@ -34,7 +26,7 @@ function Register() {
     <div className="h-screen bg-sky-200 grid place-items-center">
       <div className="bg-white w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96">
         <form action="#" onSubmit={handleSubmit}>
-          <h1 className="text-center text-xl">Register</h1>
+          <h1 className="text-center text-xl">Login</h1>
 
           <div className="flex flex-col mb-4">
             <label htmlFor="username">Username</label>
@@ -70,9 +62,9 @@ function Register() {
           </button>
         </form>
         <div className="mt-4 text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-500  hover:underline">
-            Login
+          Don&apos;t have an account?{" "}
+          <Link to="/register" className="text-blue-500  hover:underline">
+            Register
           </Link>
         </div>
       </div>
@@ -80,4 +72,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default LoginPage;
