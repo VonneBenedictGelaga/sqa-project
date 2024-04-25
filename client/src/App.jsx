@@ -14,7 +14,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
 
         <Route element={<ProtectedPages />}>
-          <Route element={<DashboardPage />} path="/" />
+          <Route path="/" element={<DashboardPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

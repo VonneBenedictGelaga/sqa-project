@@ -5,9 +5,12 @@ import {
 } from "@heroicons/react/24/solid";
 import api from "../utils/axiosInstance";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 function Navbar() {
+  const [username, setUsername] = useState('')
   const navigate = useNavigate();
+
 
   const handleLogout = async () => {
     try {
@@ -28,6 +31,15 @@ function Navbar() {
     }
   };
 
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await api.get('/verify')
+      const { username } = response.data
+      setUsername(username)
+    }
+    getUser()
+  }, [])
+
   return (
     <nav className="bg-cyan-400 py-2 px-4">
       <div className="container flex justify-between items-center relative mx-auto">
@@ -36,7 +48,7 @@ function Navbar() {
           <div className="flex gap-1 hover:scale-110 transition-transform">
             {/* Profile Icon */}
             <UserCircleIcon className="w-6 h-6 " />
-            Miguel
+            { username }
           </div>
 
           {/* Logout Icon */}
