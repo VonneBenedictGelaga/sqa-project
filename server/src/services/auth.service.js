@@ -31,3 +31,6 @@ export async function createUser(username, password) {
     });
 }
 
+export function comparePassword(password, encryptedPassword) {
+  return bcrypt.compareSync(password, encryptedPassword)
+}

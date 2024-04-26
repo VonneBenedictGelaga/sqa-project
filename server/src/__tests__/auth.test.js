@@ -1,18 +1,13 @@
-import { register } from "../controllers/auth.controller.js";
 import supertest from "supertest";
-import request from "supertest";
 import app from "../app.js";
 import * as AuthService from "../services/auth.service.js";
 
-const userPayload = {
+const testUser = {
   username: "username",
   password: "password",
 };
 
 describe("/register", () => {
-
-  
-  
   describe("given the username and password are valid", () => {
     it("should return 201 status code", async () => {
       const getByUsernameMock = jest
@@ -25,60 +20,34 @@ describe("/register", () => {
 
       const { statusCode, body } = await supertest(app)
         .post("/api/register")
-        .send(userPayload);
+        .send(testUser);
 
       expect(statusCode).toBe(201);
-      expect(getByUsernameMock).toHaveBeenCalledWith(userPayload.username);
+      expect(getByUsernameMock).toHaveBeenCalledWith(testUser.username);
       expect(createUserMock).toHaveBeenCalledTimes(1);
     });
   });
-
-  describe('')
-
-
-
 });
 
-// describe("/login", () => {
-//   describe("given username and password are valid", () => {
-//     // it('should respond with a 200 status code', () => {
-//     // })
-//     // test('should respond with a 200 status code', async () => {
-//     //   const response = await request(app).post('/api/login').send({
-//     //     username: "username",
-//     //     password: "password"
-//     //   })
-//     //   expect(response.statusCode).toBe(200)
-//     // })
-//   });
+describe("/login", () => {
+  describe("given the username and password are valid", () => {
+    it("should return an accessToken & refreshToken in a set-cookie header", async () => {
+      const getByUsernameMock = jest
+        .spyOn(AuthService, "getByUsername")
+        .mockReturnValueOnce(testUser);
 
-//   // describe("when the username or password is missing", () => {
-//   //   test('should respond with a status code of 400', async () => {
-//   //     // no username & password
-//   //     let res = await request(app).post('/api/login').send({})
-//   //     expect(res.statusCode).toBe(400)
+      jest.spyOn(AuthService, "comparePassword").mockReturnValueOnce(true);
 
-//   //     res = await request(app).post('/api/login').send({
-//   //       username: "username"
-//   //     })
-//   //     expect(res.statusCode).toBe(400)
+      const { statusCode, headers } = await supertest(app)
+        .post("/api/login")
+        .send(testUser);
 
-//   //      res = await request(app).post('/api/login').send({
-//   //       password: "password"
-//   //      })
-//   //     expect(res.statusCode).toBe(400)
-//   //   })
-//   // });
-// });
+      expect(statusCode).toBe(200);
+      expect(headers["set-cookie"]).toBeDefined();
 
-/**
- * registration
- *  - username and password get validation
- *  - verify that the passwords must match
- *  - verify that the handler handles any errors
- *
- * login
- *  - given the username and password are valid
- *    - status 200
- *    - should return accessToken, refreshToken cookies
- */
+      const cookies = headers['set-cookie']
+      expect(cookies.some((cookie) => cookie.includes("accessToken="))).toBe(true);
+      expect(cookies.some((cookie) => cookie.includes("refreshToken="))).toBe(true);
+    });
+  });
+});

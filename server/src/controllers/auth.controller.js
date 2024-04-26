@@ -59,7 +59,7 @@ export async function login(req, res, next) {
       throw new Error("username not found");
     }
 
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!authService.comparePassword(password, user.password)) {
       res.status(401);
       throw new Error("incorrect password");
     }
