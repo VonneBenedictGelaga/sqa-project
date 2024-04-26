@@ -4,17 +4,18 @@ GET http://localhost:4000/
 
 ### Register
 
-POST http://localhost:4000/api/users/register
+POST http://localhost:4000/api/register
 Content-Type: application/json
 
 {
+    "username": "miguel",
     "password": "password"
 }
 
 
 ### Login
 
-POST http://localhost:4000/api/users/login
+POST http://localhost:4000/api/login
 Content-Type: application/json
 
 {
