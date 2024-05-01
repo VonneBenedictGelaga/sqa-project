@@ -25,7 +25,7 @@ export async function getByUsername(username) {
 
 export async function createUser(username, password) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await addDoc(collection(db, "users"), {
+    await addDoc(ref, {
       username,
       password: hashedPassword,
     });
