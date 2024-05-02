@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 export function authenticateToken(req, res, next) {
   const accessToken = req.cookies['accessToken'];
-
   if (accessToken == null) {
     return res.status(401).send('No Access Token')
   }
@@ -11,7 +10,6 @@ export function authenticateToken(req, res, next) {
     if (err) {
       return res.status(401).send('Invalid Access Token')
     }
-
     req.user = user;
     next();
   });
