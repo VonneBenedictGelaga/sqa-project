@@ -1,32 +1,18 @@
 import * as authService from "../services/auth.service.js";
-import { z } from "zod";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const ACCESS_TOKEN_EXPIRY = "15s";
+const ACCESS_TOKEN_EXPIRY = "30m";
 
 /**
  * storing refreshTokenMap in memory.
  * everytime server restarts it logs out every user.
- * Map containing refresh token associated with username
+ * Map containing refresh token associated with userId
  * @type {Map<string, string>}
  */
 const refreshTokenMap = new Map();
 
-const validation = z.object({
-  username: z.string().min(3),
-  password: z.string().min(6),
-});
-
 export async function register(req, res, next) {
   const { username, password } = req.body;
-
-  const result = validation.safeParse(req.body);
-  if (!result.success) {
-    res.status(400).json({
-      message: result.error.issues,
-    });
-  }
 
   try {
     const duplicateUser = await authService.getByUsername(username);
@@ -45,13 +31,6 @@ export async function register(req, res, next) {
 export async function login(req, res, next) {
   const { username, password } = req.body;
 
-  const result = validation.safeParse(req.body);
-  if (!result.success) {
-    return res.status(400).json({
-      message: result.error.issues,
-    });
-  }
-
   try {
     const user = await authService.getByUsername(username);
     if (!user) {
@@ -65,18 +44,19 @@ export async function login(req, res, next) {
     }
 
     const accessToken = jwt.sign(
-      { username },
+      { id: user.id, username },
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: ACCESS_TOKEN_EXPIRY,
       }
     );
     const refreshToken = jwt.sign(
-      { username },
+      { id: user.id, username },
       process.env.REFRESH_TOKEN_SECRET
     );
 
-    refreshTokenMap.set(username, refreshToken);
+    refreshTokenMap.set(user.id, refreshToken);
+    console.log("refreshTokenMap", refreshTokenMap);
 
     res.cookie("accessToken", accessToken, { httpOnly: true });
     res.cookie("refreshToken", refreshToken, {
@@ -106,14 +86,14 @@ export function refreshToken(req, res, next) {
       });
     }
 
-    if (refreshTokenMap.get(user.username) !== refreshToken) {
+    if (refreshTokenMap.get(user.id) !== refreshToken) {
       return res.status(401).json({
         message: "not the users token",
       });
     }
 
     const accessToken = jwt.sign(
-      { username: user.username },
+      { id: user.id, username: user.username },
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: ACCESS_TOKEN_EXPIRY,
@@ -128,7 +108,7 @@ export function refreshToken(req, res, next) {
 export function logout(req, res, next) {
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
-  refreshTokenMap.delete(req.user.username);
+  refreshTokenMap.delete(req.user.id);
 
   return res.sendStatus(204);
 }

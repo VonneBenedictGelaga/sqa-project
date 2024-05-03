@@ -21,6 +21,8 @@ function Navbar() {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes",
+        background: "#242424",
+        color: "white",
       });
       if (result.isConfirmed) {
         await api.delete("/logout");
@@ -41,9 +43,9 @@ function Navbar() {
   }, [])
 
   return (
-    <nav className="bg-cyan-400 py-2 px-4">
+    <nav className="bg-base-300 py-4 px-4">
       <div className="container flex justify-between items-center relative mx-auto">
-        <Link to="/">App Name</Link>
+        <Link to="/">Yet Another Todoz</Link>
         <div className="flex gap-4">
           <div className="flex gap-1 hover:scale-110 transition-transform">
             {/* Profile Icon */}
