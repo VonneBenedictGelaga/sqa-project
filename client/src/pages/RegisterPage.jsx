@@ -31,7 +31,7 @@ function RegisterPage() {
   };
 
   return (
-    <div className="h-screen bg-sky-200 grid place-items-center">
+    <div className="h-screen grid place-items-center">
       <div className="bg-white w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96">
         <form action="#" onSubmit={handleSubmit}>
           <h1 className="text-center text-xl">Register</h1>

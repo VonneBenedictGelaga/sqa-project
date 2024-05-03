@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer base {
-  body {
-    @apply bg-sky-200;
-  }
-}
-
 .error {
   @apply text-red-600 font-mono tracking-tighter text-sm my-1;
 }

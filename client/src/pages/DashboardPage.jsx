@@ -2,82 +2,47 @@ import { useEffect } from "react";
 import api from "../utils/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Tasklist from "../components/Tasklist";
 
 function DashboardPage() {
+  
+
+
   return (
     <>
       <Navbar />
 
-      <main>
-        <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
-          <div className="px-4 py-2">
-          </div>
-          <form className="w-full max-w-sm mx-auto px-4 py-2">
-            <div className="flex items-center border-b-2 border-teal-500 py-2">
-              <input
-                className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                type="text"
-                placeholder="Add a task"
-              />
-              <button
-                className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                type="button"
-              >
-                Add
-              </button>
+      <main className="bg-base-300 max-w-lg mx-auto shadow-lg rounded-lg mt-16 select-none">
+        <form className="w-full px-4 pt-2 flex flex-col items-center sm:flex-row sm:items-end sm:justify-center sm:gap-4">
+          
+          <label className="form-control w-full sm:w-32">
+            <div className="label">
+              <span className="label-text">Title</span>
             </div>
-          </form>
-          <ul className="divide-y divide-gray-200 px-4">
-            <li className="py-4">
-              <div className="flex items-center">
-                <input
-                  id="todo1"
-                  name="todo1"
-                  type="checkbox"
-                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-                />
-                <label htmlFor="todo1" className="ml-3 block text-gray-900">
-                  <span className="text-lg font-medium">
-                    Finish project proposal
-                  </span>
-                  <span className="text-sm font-light text-gray-500">
-                    Due on 4/1/23
-                  </span>
-                </label>
-              </div>
-            </li>
-            <li className="py-4">
-              <div className="flex items-center">
-                <input
-                  id="todo2"
-                  name="todo2"
-                  type="checkbox"
-                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-                />
-                <label htmlFor="todo2" className="ml-3 block text-gray-900">
-                  <span className="text-lg font-medium">Buy groceries</span>
-                  <span className="text-sm font-light text-gray-500">
-                    Bananas, milk, bread
-                  </span>
-                </label>
-              </div>
-            </li>
-            <li className="py-4">
-              <div className="flex items-center">
-                <input
-                  id="todo3"
-                  name="todo3"
-                  type="checkbox"
-                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-                />
-                <label htmlFor="todo3" className="ml-3 block text-gray-900">
-                  <span className="text-lg font-medium">Go for a run</span>
-                  <span className="text-sm font-light text-gray-500">3 miles</span>
-                </label>
-              </div>
-            </li>
-          </ul>
-        </div>
+            <input
+              type="text"
+              placeholder="title"
+              className="input input-bordered input-sm"
+            />
+          </label>
+
+          <label className="form-control w-full sm:w-44">
+            <div className="label">
+              <span className="label-text">Description</span>
+            </div>
+            <input
+              type="text"
+              placeholder="description"
+              className="input input-bordered input-sm"
+            />
+          </label>
+
+          <button className="btn btn-accent btn-sm w-full mt-4 sm:w-32" type="button">
+            Add
+          </button>
+        </form>
+
+        <Tasklist />
       </main>
     </>
   );
