@@ -27,9 +27,10 @@ export async function getByTitle(title) {
   return !querySnap.empty ? querySnap.docs[0].data() : null;
 }
 
-export async function getAllTasks() {
-  const tasksSnapshot = await getDocs(ref);
-  const tasks = tasksSnapshot.docs.map((doc) => ({
+export async function getAllUserTasks(userId) {
+  const q = query(ref, where("userId", "==", userId));
+  const querySnap = await getDocs(q);
+  const tasks = querySnap.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));

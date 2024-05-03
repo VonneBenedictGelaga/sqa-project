@@ -35,7 +35,7 @@ function RegisterPage() {
   return (
     <div className="h-screen grid place-items-center">
       <div className="bg-base-300 w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96">
-        <form action="#" onSubmit={handleSubmit}>
+        <form action="#" onSubmit={handleSubmit} autoComplete="off">
           <h1 className="text-center text-xl mb-2">Register</h1>
 
           <div className="flex flex-col mb-4">

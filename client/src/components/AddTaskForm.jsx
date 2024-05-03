@@ -15,6 +15,7 @@ function AddTaskForm({ saveTask }) {
     <form
       className="w-full px-4 pt-2 flex flex-col items-center sm:flex-row sm:items-end sm:justify-center sm:gap-4"
       onSubmit={onSubmit}
+      autoComplete="off"
     >
       <label className="form-control w-full sm:w-32">
         <div className="label">

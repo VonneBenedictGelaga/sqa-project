@@ -34,7 +34,7 @@ router.delete("/logout", authenticateToken, logout);
 router.get("/verify", authenticateToken, (req, res) => res.json(req.user));
 
 // Task Routes
-router.get("/task", getAllTasksHandler);
+router.get("/task", authenticateToken, getAllTasksHandler);
 router.post(
   "/task",
   [authenticateToken, validateResource(createTaskSchema)],
