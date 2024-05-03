@@ -21,6 +21,8 @@ function Navbar() {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes",
+        background: "#242424",
+        color: "white",
       });
       if (result.isConfirmed) {
         await api.delete("/logout");

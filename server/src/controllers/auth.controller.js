@@ -56,7 +56,7 @@ export async function login(req, res, next) {
     );
 
     refreshTokenMap.set(user.id, refreshToken);
-    console.log('refreshTokenMap', refreshTokenMap)
+    console.log("refreshTokenMap", refreshTokenMap);
 
     res.cookie("accessToken", accessToken, { httpOnly: true });
     res.cookie("refreshToken", refreshToken, {
@@ -93,7 +93,7 @@ export function refreshToken(req, res, next) {
     }
 
     const accessToken = jwt.sign(
-      { username: user.username },
+      { id: user.id, username: user.username },
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: ACCESS_TOKEN_EXPIRY,

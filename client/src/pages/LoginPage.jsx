@@ -12,7 +12,6 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('username, password', username, password)
       const res = await api.post("/login", {
         username,
         password,
@@ -53,15 +52,6 @@ function LoginPage() {
           </div>
 
           <div className="flex flex-col mb-4">
-            {/* <label htmlFor="password">Password</label>
-            <input
-              className="border-solid border-[1px] border-gray-400 rounded focus:outline-blue-400 p-2"
-              type="password"
-              id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength="6"
-            /> */}
             <label className="input input-bordered flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,6 +69,7 @@ function LoginPage() {
                 type="password"
                 className="grow"
                 id="password"
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength="6"
