@@ -5,12 +5,12 @@ import {
 } from "@heroicons/react/24/solid";
 import api from "../utils/axiosInstance";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
+import { useUserContext } from "../UserContext";
+
 
 function Navbar() {
-  const [username, setUsername] = useState('')
   const navigate = useNavigate();
-
+  const { username } = useUserContext();
 
   const handleLogout = async () => {
     try {
@@ -33,27 +33,19 @@ function Navbar() {
     }
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      const response = await api.get('/verify')
-      const { username } = response.data
-      setUsername(username)
-    }
-    getUser()
-  }, [])
-
   return (
     <nav className="bg-base-300 py-4 px-4">
       <div className="container flex justify-between items-center relative mx-auto">
         <Link to="/">Yet Another Todoz</Link>
         <div className="flex gap-4">
-          <div className="flex gap-1 hover:scale-110 transition-transform">
-            {/* Profile Icon */}
+          <Link
+            to="/profile"
+            className="flex gap-1 hover:scale-110 transition-transform"
+          >
             <UserCircleIcon className="w-6 h-6 " />
-            { username }
-          </div>
+            {username}
+          </Link>
 
-          {/* Logout Icon */}
           <ArrowRightStartOnRectangleIcon
             className="w-6 h-6 hover:scale-110 transition-transform cursor-pointer"
             onClick={handleLogout}

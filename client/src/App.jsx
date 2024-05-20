@@ -4,19 +4,24 @@ import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedPages from "./pages/ProtectedPages";
+import ProfilePage from "./pages/ProfilePage";
+import { UserProvider } from "./UserContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+      <UserProvider>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<NotFoundPage />} />
 
-        <Route element={<ProtectedPages />}>
-          <Route path="/" element={<DashboardPage />} />
-        </Route>
-      </Routes>
+          <Route element={<ProtectedPages />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
+        </Routes>
+      </UserProvider>
     </BrowserRouter>
   );
 }

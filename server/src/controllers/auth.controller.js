@@ -109,6 +109,6 @@ export function logout(req, res, next) {
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
   refreshTokenMap.delete(req.user.id);
-
+  console.log('refreshTokenMap', refreshTokenMap)
   return res.sendStatus(204);
 }

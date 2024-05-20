@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import api from "../utils/axiosInstance";
+import { useUserContext } from "../UserContext";
 
 function ProtectedPages() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { setUsername } = useUserContext();
 
   useEffect(() => {
-    // Send a request to the server to verify the user's authentication status
     const checkAuthentication = async () => {
       try {
         const response = await api.get("/verify");
         setLoggedIn(response.status === 200);
+        setUsername(response?.data?.username);
       } catch (error) {
         console.error("Error checking authentication:", error);
         setLoggedIn(false);
@@ -22,11 +24,9 @@ function ProtectedPages() {
   }, []);
 
   if (loading) {
-    // While loading, render a loading indicator or placeholder
     return <div>Loading...</div>;
   }
 
-  // Once loading is complete, determine whether to render the protected pages or redirect to login
   return loggedIn ? <Outlet /> : <Navigate to="/login" />;
 }
 
