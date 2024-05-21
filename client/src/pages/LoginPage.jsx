@@ -79,7 +79,7 @@ function LoginPage() {
           <div className="error">{errorMsg}</div>
 
           <button className="btn btn-primary" type="submit">
-            Submit
+            Login
           </button>
         </form>
         <div className="mt-4 text-sm">
