@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'cypress/react18';
 import AddTaskForm from '../../client/src/components/AddTaskForm';
+import Tasklist from '../../client/src/components/Tasklist';
 
 describe('AddTaskForm', () => {
   beforeEach(() => {
@@ -11,20 +12,33 @@ describe('AddTaskForm', () => {
     cy.get('[type="submit"]').click();
   });
 
-  //TST_No_03_01
-  it('should show error message when leaving "title" field empty', () => {
-    // Click 'Add' button without filling the 'title' field
+  it('should show error message when all fields are empty', () => {
+    // Click 'Add' button
     cy.get('[data-cy=add-button]').click();
 
-    // Check if the error message is displayed
+    // Check if the error message is displayed on the title-input 
+    cy.get('[data-cy=title-input]').then(($input) => {
+      expect($input[0].validationMessage).to.eq("Please fill out this field.");
+    });
+  });
+
+  //TST_No_03_01
+  it('should show error message when "Title" field is empty', () => {
+    // Fill up the description field
+    cy.get('[data-cy=description-input]').type('Test Description');
+    
+    // Click 'Add' button
+    cy.get('[data-cy=add-button]').click();
+    
+    // Check if the error message is displayed on the title-input 
     cy.get('[data-cy=title-input]').then(($input) => {
       expect($input[0].validationMessage).to.eq("Please fill out this field.");
     });
   });
 
   //TST_No_03_02
-  it('should show error message when leaving "description" field empty', () => {
-    // Fill up the 'title' field and click add button
+  it('should show error message when "Description" field is empty', () => {
+    // Fill up the 'title' field
     cy.get('[data-cy=title-input]').type('Test Title');
 
     // Click 'Add' button
@@ -37,17 +51,21 @@ describe('AddTaskForm', () => {
   });
 
   //TST_No_03_03
-  it('should not show error message when clicking "Add" button after filling up the "title" and "description" field', () => {
+  it('should NOT show error message when all fields are NOT empty', () => {
     // Fill up the 'title' field
     cy.get('[data-cy=title-input]').type('Test Title');
+    
     // Fill up the description field
     cy.get('[data-cy=description-input]').type('Test Description');
+    
     // Click 'Add' button
     cy.get('[data-cy=add-button]').click();
 
     // Check if the inputs are valid
     cy.get('[data-cy=title-input]').should("have.length", 1);
     cy.get('[data-cy=description-input]').should("have.length", 1);
+    
     // Check if the task has been created
+    
   });
 });
