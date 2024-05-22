@@ -25,6 +25,13 @@ function DashboardPage() {
       getTasks();
     } catch (error) {
       console.error("Error adding task:", error);
+      if (error?.response?.status === 409) {
+        Swal.fire({
+          icon: "error",
+          title: "Error Adding Task",
+          text: "Title Already Exists",
+        });
+      }
     }
   };
 
@@ -84,6 +91,13 @@ function DashboardPage() {
       getTasks();
     } catch (error) {
       console.error("Error updating task:", error);
+      if (error?.response?.status === 409) {
+        Swal.fire({
+          icon: "error",
+          title: "Error Updating Task",
+          text: "Title Already Exists",
+        });
+      }
     }
   };
 
