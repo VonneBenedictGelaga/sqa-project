@@ -36,6 +36,10 @@ export async function editTaskHandler(req, res, next) {
       return res.status(404).json({ message: "Task not found" });
     }
 
+    if (await service.getByTitle(title)) {
+      return res.status(409).json({ message: "Title already exists" });
+    }
+
     await service.editTask(taskId, title, description);
 
     return res.sendStatus(200);
