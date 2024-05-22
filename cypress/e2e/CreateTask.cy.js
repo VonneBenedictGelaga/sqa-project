@@ -7,6 +7,8 @@ describe('AddTaskForm', () => {
   beforeEach(() => {
     // Visit the page or mount your component as needed
     cy.visit('http://localhost:5173/login');
+
+    //Log in using a tester account
     cy.get("#username").type('tester');
     cy.get("#password").type('1qaz2wsx');
     cy.get('[type="submit"]').click();
@@ -58,14 +60,15 @@ describe('AddTaskForm', () => {
     // Fill up the description field
     cy.get('[data-cy=description-input]').type('Test Description');
     
-    // Click 'Add' button
-    cy.get('[data-cy=add-button]').click();
-
     // Check if the inputs are valid
     cy.get('[data-cy=title-input]').should("have.length", 1);
     cy.get('[data-cy=description-input]').should("have.length", 1);
     
-    // Check if the task has been created
+    // Click 'Add' button
+    cy.get('[data-cy=add-button]').click();
     
+    // Check if the task has been created and printed successfully
+    cy.get('[data-cy="task-list"]').contains('Test Title').should('exist');
+    cy.get('[data-cy="task-list"]').contains('Test Description').should('exist');
   });
 });
