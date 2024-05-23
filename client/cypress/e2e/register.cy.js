@@ -46,7 +46,7 @@ describe("register page", () => {
   });
 
   it("should show an error message when the password is below the minimum required length", () => {
-    cy.get("#username").type('registertest');
+    cy.get("#username").type('registertest0');
     cy.get("#password").type('12345');
     cy.get('[type="submit"]').click();
 
@@ -54,14 +54,16 @@ describe("register page", () => {
   });
 
   it("should create a new account and be able to login with the new account", () => {
-    cy.get("#username").type('registertest');
+    const randomizer = Math.floor(Math.random() * 999)
+    
+    cy.get("#username").type(`registertest${randomizer}`);
     cy.get("#password").type('123456');
 
     cy.get('[type="submit"]').click();
 
     cy.url().should('eq', 'http://localhost:5173/login');
 
-    cy.get("#username").type('registertest');
+    cy.get("#username").type(`registertest${randomizer}`);
     cy.get("#password").type('123456');
 
     cy.get('[type="submit"]').click();
