@@ -2,7 +2,7 @@ import { TrashIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 
 function Tasklist({ tasks, updateTaskStatus, deleteTask, setSelectedTask }) {
   return (
-    <ul className="px-4 pb-4" data-cy="task-list">
+    <ul className="px-4 pb-4">
       {tasks &&
         tasks.map((task) => (
           <li className="mt-2 p-2" key={task.id}>
