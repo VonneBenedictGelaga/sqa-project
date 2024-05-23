@@ -34,8 +34,6 @@ describe('login page', () => {
     cy.get("#password").type('1qaz2wsx');
     cy.get('[type="submit"]').click();
 
-    cy.wait('@loginRequest');
-
     cy.get('.error').should('have.text', 'username not found');
   });
 
