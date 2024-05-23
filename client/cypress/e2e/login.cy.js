@@ -1,9 +1,9 @@
-describe("register page", () => {
+describe('login page', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173/register');
+    cy.visit('http://localhost:5173/login');
   });
 
-  it("should show validation errors when leaving all fields blank,", () => {
+  it("should show validation errors when leaving all fields blank", () => {
     cy.get('[type="submit"]').click();
     cy.get("input#username:invalid").should("have.length", 1);
     cy.get("#username").then(($input) => {
@@ -29,40 +29,27 @@ describe("register page", () => {
     });
   });
 
-  it("should show an error message when the username is already taken", () => {
-    cy.get("#username").type('tester');
+  it("should show an error message when the username does not exist", () => {
+    cy.get("#username").type('test');
     cy.get("#password").type('1qaz2wsx');
     cy.get('[type="submit"]').click();
 
-    cy.get('.error').should('have.text', 'username already taken');
+    cy.wait('@loginRequest');
+
+    cy.get('.error').should('have.text', 'username not found');
   });
 
-  it("should show an error message when the username is below the minimum required length", () => {
-    cy.get("#username").type('hi');
-    cy.get("#password").type('123456');
+  it("should show an error message when the password is incorrect", () => {
+    cy.get("#username").type('tester');
+    cy.get("#password").type('123123');
     cy.get('[type="submit"]').click();
 
-    cy.get('.error').should('have.text', 'Validation failed');
+    cy.get('.error').should('have.text', 'incorrect password');
   });
 
-  it("should show an error message when the password is below the minimum required length", () => {
-    cy.get("#username").type('registertest');
-    cy.get("#password").type('12345');
-    cy.get('[type="submit"]').click();
-
-    cy.get('.error').should('have.text', 'Validation failed');
-  });
-
-  it("should create a new account and be able to login with the new account", () => {
-    cy.get("#username").type('registertest');
-    cy.get("#password").type('123456');
-
-    cy.get('[type="submit"]').click();
-
-    cy.url().should('eq', 'http://localhost:5173/login');
-
-    cy.get("#username").type('registertest');
-    cy.get("#password").type('123456');
+  it("should proceed to the Dashboard Page", () => {
+    cy.get("#username").type('tester');
+    cy.get("#password").type('1qaz2wsx');
 
     cy.get('[type="submit"]').click();
 
