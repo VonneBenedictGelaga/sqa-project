@@ -8,7 +8,7 @@ describe('AddTaskForm', () => {
     // Visit the page
     cy.visit('http://localhost:5173/login');
 
-    //Log in using a tester account
+    // Log in using a tester account
     cy.get("#username").type('tester');
     cy.get("#password").type('1qaz2wsx');
     cy.get('[type="submit"]').click();
@@ -18,7 +18,7 @@ describe('AddTaskForm', () => {
     // Click 'Add' button
     cy.get('[data-cy=add-button]').click();
 
-    // Check if the error message is displayed on the title-input 
+    // Check if the error message is displayed on the title-input field
     cy.get('[data-cy=title-input]').then(($input) => {
       expect($input[0].validationMessage).to.eq("Please fill out this field.");
     });
@@ -32,7 +32,7 @@ describe('AddTaskForm', () => {
     // Click 'Add' button
     cy.get('[data-cy=add-button]').click();
     
-    // Check if the error message is displayed on the title-input 
+    // Check if the error message is displayed on the description-input field
     cy.get('[data-cy=title-input]').then(($input) => {
       expect($input[0].validationMessage).to.eq("Please fill out this field.");
     });
@@ -74,7 +74,7 @@ describe('AddTaskForm', () => {
 
   //TST_No_03_04
   it('should show error message when Title field already exists', () => {  
-    // Attempt to create another task with the same title
+    // Attempt to create another task with the same title as the one successfully created previously
     cy.get('[data-cy=title-input]').type('taskTitle');
     cy.get('[data-cy=description-input]').type('Another Description');
     cy.get('[data-cy=add-button]').click();
@@ -87,7 +87,7 @@ describe('AddTaskForm', () => {
     // Close the SweetAlert modal
     cy.get('button.swal2-confirm').click({force: true});
   
-    // Check the SweetAlert modal is closed
+    // Check the SweetAlert modal if it is closed
     cy.get('.swal2-container').should('not.exist');
   });
 });
