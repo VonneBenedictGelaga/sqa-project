@@ -12,11 +12,11 @@ function AddTaskForm({ saveTask }) {
   };
 
   return (
-    <div data-cy-root>
     <form
       className="w-full px-4 pt-2 flex flex-col items-center sm:flex-row sm:items-end sm:justify-center sm:gap-4"
       onSubmit={onSubmit}
       autoComplete="off"
+      data-cy-root
     >
       <label className="form-control w-full sm:w-32">
         <div className="label">
@@ -58,7 +58,6 @@ function AddTaskForm({ saveTask }) {
         Add
       </button>
     </form>
-    </div>
   );
 }
 
