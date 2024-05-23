@@ -71,4 +71,34 @@ describe('AddTaskForm', () => {
     cy.get('[data-cy="task-list"]').contains('Test Title').should('exist');
     cy.get('[data-cy="task-list"]').contains('Test Description').should('exist');
   });
+
+  //TST_No_03_04
+  it('should show error message when Title field already exists', () => {
+    // Create the first task with a specific title  
+    cy.get('[data-cy=title-input]').type('taskTitle');
+    cy.get('[data-cy=description-input]').type('taskDescription');
+    cy.get('[data-cy=add-button]').click();
+  
+    // Ensure the task is created successfully
+    cy.get('[data-cy="task-list"]').contains('taskTitle').should('exist');
+    cy.get('[data-cy="task-list"]').contains('taskDescription').should('exist');
+  
+    // Attempt to create another task with the same title
+    cy.get('[data-cy=title-input]').type('taskTitle');
+    cy.get('[data-cy=description-input]').type('Another Description');
+    cy.get('[data-cy=add-button]').click();
+  
+    // Check if the SweetAlert error message is displayed
+    cy.get('.swal2-container').should('be.visible');
+    cy.get('.swal2-title').should('have.text', 'Error Adding Task');
+    cy.get('.swal2-html-container').should('have.text', 'Title Already Exists');
+  
+    // Close the SweetAlert modal
+    cy.get('button.swal2-confirm').click({force: true});
+  
+    // Ensure the SweetAlert modal is closed
+    cy.get('.swal2-container').should('not.exist');
+  
+    // Now you can create another task with the same title again or perform other actions
+  });
 });
