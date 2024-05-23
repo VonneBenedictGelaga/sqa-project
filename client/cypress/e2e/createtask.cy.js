@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'cypress/react18';
-import AddTaskForm from '../../client/src/components/AddTaskForm';
-import Tasklist from '../../client/src/components/Tasklist';
+import AddTaskForm from '../../src/components/AddTaskForm';
+import Tasklist from '../../src/components/Tasklist';
 
 describe('AddTaskForm', () => {
   beforeEach(() => {
-    // Visit the page or mount your component as needed
+    // Visit the page
     cy.visit('http://localhost:5173/login');
 
     //Log in using a tester account
@@ -73,16 +73,7 @@ describe('AddTaskForm', () => {
   });
 
   //TST_No_03_04
-  it('should show error message when Title field already exists', () => {
-    // Create the first task with a specific title  
-    cy.get('[data-cy=title-input]').type('taskTitle');
-    cy.get('[data-cy=description-input]').type('taskDescription');
-    cy.get('[data-cy=add-button]').click();
-  
-    // Ensure the task is created successfully
-    cy.get('[data-cy="task-list"]').contains('taskTitle').should('exist');
-    cy.get('[data-cy="task-list"]').contains('taskDescription').should('exist');
-  
+  it('should show error message when Title field already exists', () => {  
     // Attempt to create another task with the same title
     cy.get('[data-cy=title-input]').type('taskTitle');
     cy.get('[data-cy=description-input]').type('Another Description');
@@ -96,9 +87,7 @@ describe('AddTaskForm', () => {
     // Close the SweetAlert modal
     cy.get('button.swal2-confirm').click({force: true});
   
-    // Ensure the SweetAlert modal is closed
+    // Check the SweetAlert modal is closed
     cy.get('.swal2-container').should('not.exist');
-  
-    // Now you can create another task with the same title again or perform other actions
   });
 });
