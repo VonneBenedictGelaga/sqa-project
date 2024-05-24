@@ -6,7 +6,7 @@ function EditTaskModal({ selectedTask, updateTask }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    updateTask(selectedTask.id, editTitle, editDescription)
+    updateTask(selectedTask.id, editTitle.trim(), editDescription.trim())
     document.getElementById("my_modal_2")?.close();
   };
 

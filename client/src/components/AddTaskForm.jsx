@@ -6,6 +6,7 @@ function AddTaskForm({ saveTask }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    setTitle(title.trim());
     setTitle("");
     setDescription("");
     saveTask(title, description);
