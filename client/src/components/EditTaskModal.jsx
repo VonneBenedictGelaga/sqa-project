@@ -6,7 +6,7 @@ function EditTaskModal({ selectedTask, updateTask }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    updateTask(selectedTask.id, editTitle, editDescription)
+    updateTask(selectedTask.id, editTitle.trim(), editDescription.trim())
     document.getElementById("my_modal_2")?.close();
   };
 
@@ -31,6 +31,7 @@ function EditTaskModal({ selectedTask, updateTask }) {
                 <span className="label-text">Title</span>
               </div>
               <input
+                data-cy="edit-title"
                 type="text"
                 placeholder="title"
                 className="input input-bordered input-sm"
@@ -46,6 +47,7 @@ function EditTaskModal({ selectedTask, updateTask }) {
                 <span className="label-text">Description</span>
               </div>
               <input
+                data-cy="edit-description"
                 type="text"
                 placeholder="description"
                 className="input input-bordered input-sm"
@@ -56,14 +58,14 @@ function EditTaskModal({ selectedTask, updateTask }) {
               />
             </label>
 
-            <button className="btn btn-accent btn-sm w-full mt-4" type="submit">
+            <button data-cy="edit-button" className="btn btn-accent btn-sm w-full mt-4" type="submit">
               Edit
             </button>
           </form>
 
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button data-cy="close-button" className="btn">Close</button>
             </form>
           </div>
         </div>
