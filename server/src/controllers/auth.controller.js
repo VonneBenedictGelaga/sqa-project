@@ -58,10 +58,16 @@ export async function login(req, res, next) {
     refreshTokenMap.set(user.id, refreshToken);
     console.log("refreshTokenMap", refreshTokenMap);
 
-    res.cookie("accessToken", accessToken, { httpOnly: true });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       path: "/api/refresh",
+      sameSite: "none",
+      secure: true,
     });
 
     return res.sendStatus(200);
@@ -100,7 +106,11 @@ export function refreshToken(req, res, next) {
       }
     );
 
-    res.cookie("accessToken", accessToken, { httpOnly: true });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
     return res.sendStatus(200);
   });
 }
@@ -109,6 +119,6 @@ export function logout(req, res, next) {
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
   refreshTokenMap.delete(req.user.id);
-  console.log('refreshTokenMap', refreshTokenMap)
+  console.log("refreshTokenMap", refreshTokenMap);
   return res.sendStatus(204);
 }
