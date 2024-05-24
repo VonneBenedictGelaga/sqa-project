@@ -17,6 +17,14 @@ describe('update task form', () => {
 
     // TST_No_04_01
     it('should show Edit Task form modal', () => {
+        // Make sure that there is a task that can be edited, create a sample task
+        // Create a test task with a valid title and description
+        cy.get('[data-cy=title-input]').type('Test Task Title');
+        cy.get('[data-cy=description-input]').type('Test Task Description');
+        cy.get('[data-cy=add-button]').click();
+        cy.get('[data-cy="task-list"]').contains('Test Task Title').should('exist');
+        cy.get('[data-cy="task-list"]').contains('Test Task Description').should('exist');
+        
         // Click 'Edit' icon of the first task item 
         cy.get('[data-cy="task-list"] li').first().within(() => {
             cy.get('svg.cursor-pointer.hover\\:text-yellow-400').click({ force: true });
@@ -54,13 +62,6 @@ describe('update task form', () => {
 
     // TST_No_04_03
     it('should change the task "Title" and "Description"', () => {
-        // Create a test task with a valid title and description
-        cy.get('[data-cy=title-input]').type('Test Task Title');
-        cy.get('[data-cy=description-input]').type('Test Task Description');
-        cy.get('[data-cy=add-button]').click();
-        cy.get('[data-cy="task-list"]').contains('Test Task Title').should('exist');
-        cy.get('[data-cy="task-list"]').contains('Test Task Description').should('exist');
-
         // Click 'Edit' icon of the first task item 
         cy.get('[data-cy="task-list"] li').first().within(() => {
             cy.get('svg.cursor-pointer.hover\\:text-yellow-400').click({ force: true });
