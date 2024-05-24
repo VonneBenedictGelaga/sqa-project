@@ -3,7 +3,7 @@ import { mount } from 'cypress/react18';
 import AddTaskForm from '../../src/components/AddTaskForm';
 import Tasklist from '../../src/components/Tasklist';
 
-describe('AddTaskForm', () => {
+describe('add task form', () => {
   beforeEach(() => {
     // Visit the page
     cy.visit('http://localhost:5173/login');
@@ -14,6 +14,7 @@ describe('AddTaskForm', () => {
     cy.get('[type="submit"]').click();
   });
 
+  // TST_No_03_01
   it('should show error message when all fields are empty', () => {
     // Click 'Add' button
     cy.get('[data-cy=add-button]').click();
@@ -24,7 +25,7 @@ describe('AddTaskForm', () => {
     });
   });
 
-  //TST_No_03_01
+  // TST_No_03_02
   it('should show error message when "Title" field is empty', () => {
     // Fill up the description field
     cy.get('[data-cy=description-input]').type('Test Description');
@@ -38,7 +39,7 @@ describe('AddTaskForm', () => {
     });
   });
 
-  //TST_No_03_02
+  // TST_No_03_03
   it('should show error message when "Description" field is empty', () => {
     // Fill up the 'title' field
     cy.get('[data-cy=title-input]').type('Test Title');
@@ -52,7 +53,7 @@ describe('AddTaskForm', () => {
     });
   });
 
-  //TST_No_03_03
+  // TST_No_03_04
   it('should NOT show error message when all fields are NOT empty', () => {
     // Fill up the 'title' field
     cy.get('[data-cy=title-input]').type('Test Title');
@@ -72,7 +73,7 @@ describe('AddTaskForm', () => {
     cy.get('[data-cy="task-list"]').contains('Test Description').should('exist');
   });
 
-  //TST_No_03_04
+  // TST_No_03_05
   it('should show error message when Title field already exists', () => {  
     // Attempt to create another task with the same title as the one successfully created previously
     cy.get('[data-cy=title-input]').type('taskTitle');
