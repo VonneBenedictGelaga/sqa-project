@@ -18,18 +18,18 @@ function LoginPage() {
       });
       navigate("/");
     } catch (error) {
-      setErrorMsg(error?.response?.data?.message ?? "something wen't wrong");
+      setErrorMsg(error?.response?.data?.message ?? "something went wrong");
     }
   };
 
   return (
     <div className="h-screen grid place-items-center">
-      <div className="bg-base-300 w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96">
+      <div className="bg-base-300 w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96 gap-5 text-center">
         <form action="#" onSubmit={handleSubmit} autoComplete="off">
-          <h1 className="text-center text-xl mb-2">Login</h1>
+          <h1 className="text-center text-xl mb-5">LOGIN</h1>
 
           <div className="flex flex-col mb-4">
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 border-none">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -52,7 +52,7 @@ function LoginPage() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 border-none focus:ring-blue-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -78,14 +78,23 @@ function LoginPage() {
           </div>
           <div className="error">{errorMsg}</div>
 
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary mt-2 text-white" type="submit">
+            <svg 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5 opacity-70"
+            >
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9.00195 7C9.01406 4.82497 9.11051 3.64706 9.87889 2.87868C10.7576 2 12.1718 2 15.0002 2L16.0002 2C18.8286 2 20.2429 2 21.1215 2.87868C22.0002 3.75736 22.0002 5.17157 22.0002 8L22.0002 16C22.0002 18.8284 22.0002 20.2426 21.1215 21.1213C20.3531 21.8897 19.1752 21.9862 17 21.9983M9.00195 17C9.01406 19.175 9.11051 20.3529 9.87889 21.1213C10.5202 21.7626 11.4467 21.9359 13 21.9827" strokeWidth="1.5" strokeLinecap="round"></path></g>
+            </svg>
             Login
           </button>
         </form>
         <div className="mt-4 text-sm">
           Don&apos;t have an account?{" "}
           <Link to="/register" className="text-blue-500  hover:underline">
-            Register
+            Register Here
           </Link>
         </div>
       </div>

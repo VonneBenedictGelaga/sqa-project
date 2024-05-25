@@ -28,18 +28,18 @@ function RegisterPage() {
       });
       navigate("/login");
     } catch (error) {
-      setErrorMsg(error?.response?.data?.message ?? "something wen't wrong");
+      setErrorMsg(error?.response?.data?.message ?? "something went wrong");
     }
   };
 
   return (
     <div className="h-screen grid place-items-center">
-      <div className="bg-base-300 w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96">
+      <div className="bg-base-300 w-4/5 mx-auto p-4 mb-40 shadow-lg rounded md:w-96 text-center">
         <form action="#" onSubmit={handleSubmit} autoComplete="off">
-          <h1 className="text-center text-xl mb-2">Register</h1>
+          <h1 className="text-center text-xl mb-5">REGISTER</h1>
 
           <div className="flex flex-col mb-4">
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 border-none">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -62,7 +62,7 @@ function RegisterPage() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 border-none">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -88,7 +88,16 @@ function RegisterPage() {
           </div>
           <div className="error">{errorMsg}</div>
 
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary text-white mt-2" type="submit">
+            <svg 
+              viewBox="0 0 24 24" 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="#000000"
+              stroke="currentColor"
+              className="w-5 h-5 opacity-70"
+            >
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M18 9H4V8h14zm-5 3H4v1h9zm8-8v9h-1V5H2v13h9v1H1V4zm2.07 11.637l-.707-.707-5.863 5.863-2.863-2.863-.707.707 3.57 3.57z"></path></g>
+            </svg>
             Submit
           </button>
         </form>
@@ -96,7 +105,7 @@ function RegisterPage() {
         <div className="mt-4 text-sm">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-500  hover:underline">
-            Login
+            Login Here
           </Link>
         </div>
       </div>
