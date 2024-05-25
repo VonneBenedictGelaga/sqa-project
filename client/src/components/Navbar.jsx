@@ -36,7 +36,7 @@ function Navbar() {
   return (
     <nav className="bg-base-300 py-4 px-4">
       <div className="container flex justify-between items-center relative mx-auto">
-        <Link to="/">Yet Another Todoz</Link>
+        <Link to="/">SQA Final Project</Link>
         <div className="flex gap-4">
           <Link
             to="/profile"
