@@ -76,9 +76,12 @@ function LoginPage() {
               />
             </label>
           </div>
-          <div className="error">{errorMsg}</div>
+          <div className="flex relative justify-center items-center">
+            <div className="error absolute">{errorMsg}</div>
+          </div>
+          
 
-          <button className="btn btn-primary mt-2 text-white" type="submit">
+          <button className="btn btn-primary mt-5 text-white" type="submit">
             <svg 
               viewBox="0 0 24 24" 
               fill="none" 

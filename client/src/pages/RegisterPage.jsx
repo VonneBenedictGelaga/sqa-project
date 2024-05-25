@@ -86,9 +86,11 @@ function RegisterPage() {
               />
             </label>
           </div>
-          <div className="error">{errorMsg}</div>
+          <div className="flex relative justify-center items-center">
+            <div className="error absolute">{errorMsg}</div>
+          </div>
 
-          <button className="btn btn-primary text-white mt-2" type="submit">
+          <button className="btn btn-primary text-white mt-5" type="submit">
             <svg 
               viewBox="0 0 24 24" 
               xmlns="http://www.w3.org/2000/svg" 
