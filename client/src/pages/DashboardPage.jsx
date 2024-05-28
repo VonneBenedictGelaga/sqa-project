@@ -98,6 +98,15 @@ function DashboardPage() {
         title,
         description,
       });
+
+      Swal.fire({
+        icon: "success",
+        title: "Task Successfully Updated",
+        timer: 2000,
+        background: "#242424",
+        color: "white",
+      });
+
       getTasks();
     } catch (error) {
       console.error("Error updating task:", error);

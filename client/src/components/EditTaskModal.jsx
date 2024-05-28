@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 function EditTaskModal({ selectedTask, updateTask }) {
   const [editTitle, setEditTitle] = useState("");
@@ -34,7 +35,7 @@ function EditTaskModal({ selectedTask, updateTask }) {
                 data-cy="edit-title"
                 type="text"
                 placeholder="title"
-                className="input input-bordered input-sm"
+                className="input input-bordered input-sm focus:outline-none focus:ring-0 hover:border-accent focus:border-accent"
                 required
                 minLength={3}
                 value={editTitle}
@@ -50,7 +51,7 @@ function EditTaskModal({ selectedTask, updateTask }) {
                 data-cy="edit-description"
                 type="text"
                 placeholder="description"
-                className="input input-bordered input-sm"
+                className="input input-bordered input-sm focus:outline-none focus:ring-0 hover:border-accent focus:border-accent"
                 required
                 minLength={3}
                 value={editDescription}
@@ -58,14 +59,18 @@ function EditTaskModal({ selectedTask, updateTask }) {
               />
             </label>
 
-            <button data-cy="edit-button" className="btn btn-accent btn-sm w-full mt-4" type="submit">
+            <button data-cy="edit-button" className="btn btn-accent btn-sm w-full mt-4 sm:w-20 text-white" type="submit">
+              <PencilSquareIcon
+                  width={24}
+                  className="w-5 h-5 opacity-80"
+                />
               Edit
             </button>
           </form>
 
           <div className="modal-action">
             <form method="dialog">
-              <button data-cy="close-button" className="btn">Close</button>
+              <button data-cy="close-button" className="btn hover:btn-error hover:text-white">Close</button>
             </form>
           </div>
         </div>
