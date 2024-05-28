@@ -22,6 +22,14 @@ function DashboardPage() {
   const saveTask = async (title, description) => {
     try {
       await api.post("/task", { title, description, status: false });
+      Swal.fire({
+        icon: "success",
+        title: "Task Successfully Added",
+        timer: 2000,
+        background: "#242424",
+        color: "white",
+      });
+
       getTasks();
     } catch (error) {
       console.error("Error adding task:", error);
@@ -30,6 +38,8 @@ function DashboardPage() {
           icon: "error",
           title: "Error Adding Task",
           text: "Title Already Exists",
+          background: "#242424",
+          color: "white",
         });
       }
     }
@@ -96,6 +106,8 @@ function DashboardPage() {
           icon: "error",
           title: "Error Updating Task",
           text: "Title Already Exists",
+          background: "#242424",
+          color: "white",
         });
       }
     }
