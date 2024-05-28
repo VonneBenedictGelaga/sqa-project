@@ -21,7 +21,7 @@ function DashboardPage() {
 
   const saveTask = async (title, description) => {
     try {
-      await api.post("/task", { title, description, status: false })
+      await api.post("/task", { title, description, status: false });
       Swal.fire({
         icon: "success",
         title: "Task Successfully Added",
